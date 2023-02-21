@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>Post a blog</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Post a blog</h1>
+        <div class="post-div">
+            <label for="">Author</label>
+            <input id="author" class="" type="text">
+        </div>
+        <div class="post-div">
+            <label for="">Title</label>
+            <input id="title" class="" type="text">
+        </div>
+        <div class="post-div">
+            <label for="">Blog content</label>
+            <textarea class="" name="" id="content" cols="30" rows="10"></textarea>
+        </div>
+        <div class="post-div">
+            <button onclick="post(event)" class="post">Post</button>
+        </div>
+    </main>
+    <script>
+        let author = document.getElementById("author");
+        let title = document.getElementById("title");
+        let content = document.getElementById("content");
+        let arr = [];
+        function post() {
+            let data = {
+                author: author.value,
+                title: title.value,
+                content: content.value,
+            }
+            arr.push(data);
+            console.log(data);
+        }
+</script>
+<script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyBPnpIoLv0ZQ49lT8mcpvmNQy1f26u4wTU",
+    authDomain: "eniike-first-project.firebaseapp.com",
+    projectId: "eniike-first-project",
+    storageBucket: "eniike-first-project.appspot.com",
+    messagingSenderId: "239971581819",
+    appId: "1:239971581819:web:2545663cc82ace481dc7de"
+    };
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+</script>
+
+<script>
+        function post(ev){
+        // Add a new document in collection "cities"
+            db.collection("eniks-blog").doc("eniks-blog").set({
+                author: author.value,
+                title: title.value,
+                content: content.value,
+            })
+            .then(() => {
+                console.log("Document successfully written!");
+                window.location.href = "dashboard.html";
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+        }
+</script>
+</body>
+</html>
